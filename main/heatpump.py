@@ -100,10 +100,6 @@ def sub_cb(topic, msg, retained):
 ################################################
 # do init
     elif topic == topic_sub_doinit:
-        hpfuncs.logprint(str(msg))
-        if msg == b'reboot':
-            hpfuncs.logprint("rebooting")
-            machine.reset()
         myvals = hpfuncs.queryall()
         hpfuncs.logprint("initial read")
         for i in myvals:
