@@ -1,7 +1,6 @@
 from main import hpfuncs
 from main.ota_updater import OTAUpdater
 from machine import UART
-from machine import RTC
 
 global uart
 uart = UART(1, 9600)
@@ -157,11 +156,7 @@ async def firstrun(client):
         firstrun = True
     while True:
         await asyncio.sleep(60)
-        rtc = RTC()
-        t = rtc.datetime()
-        #(2020, 4, 22, 2, 8, 43, 38, 88387)
-        # yyyy, m, dd, ?, h, mm, ss, ms
-        timestamp = str(t[2]) + "-" + str(t[1]) + "-" + str(t[0]) + " " + str(t[4]) + ":" + str(t[5]) + ":" + str(t[6]) + "." + str(t[7])        
+        timestamp = str(time.time()+946684800)
         await client.publish(config['maintopic'] + '/watchdog', timestamp)
         hpfuncs.logprint("running watchdog..")
 
